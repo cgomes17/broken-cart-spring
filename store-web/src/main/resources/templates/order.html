@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Store – Order</title>
+    <link rel="stylesheet" th:href="@{/store.css}">
+</head>
+<body>
+<nav><a th:href="@{/}">Products</a><a th:href="@{/cart}">Cart</a></nav>
+<h1>Order <span th:text="${order.id()}"></span></h1>
+<p>
+    Customer: <span th:text="${order.customerId()}"></span>
+    (<span th:text="${order.customerType()}"></span>) –
+    Status: <span th:text="${order.status()}"></span>
+</p>
+<table>
+    <tr><th>Product</th><th>Unit price</th><th>Qty</th></tr>
+    <tr th:each="line : ${order.lines()}">
+        <td th:text="${line.name()}"></td>
+        <td th:text="${line.unitPrice()}"></td>
+        <td th:text="${line.quantity()}"></td>
+    </tr>
+</table>
+<p><strong>Total: <span th:text="${order.total()}"></span></strong></p>
+</body>
+</html>

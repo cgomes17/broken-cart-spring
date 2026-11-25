@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Store – Cart</title>
+    <link rel="stylesheet" th:href="@{/store.css}">
+</head>
+<body>
+<nav><a th:href="@{/}">Products</a><a th:href="@{/cart}">Cart</a></nav>
+<h1>Cart</h1>
+<p class="error" th:if="${error}" th:text="${error}"></p>
+
+<p th:if="${cart.isEmpty()}">Your cart is empty.</p>
+
+<div th:unless="${cart.isEmpty()}">
+    <table>
+        <tr><th>Product</th><th>Unit price</th><th>Qty</th><th>Total</th></tr>
+        <tr th:each="item : ${cart.items()}">
+            <td th:text="${item.name()}"></td>
+            <td th:text="${item.unitPrice()}"></td>
+            <td th:text="${item.quantity()}"></td>
+            <td th:text="${item.lineTotal()}"></td>
+        </tr>
+    </table>
+    <p class="muted" th:text="${cart.summary()}"></p>
+    <p><strong>Subtotal: <span th:text="${cart.total()}"></span></strong></p>
+
+    <form th:action="@{/cart/checkout}" method="post">
+        <input type="hidden" name="idempotencyKey" th:value="${idempotencyKey}">
+        <label>Customer
+            <select name="customerId">
+                <option value="alice">alice</option>
+                <option value="bob">bob</option>
+            </select>
+        </label>
+        <label>Customer type
+            <select name="customerType">
+                <option value="REGULAR">REGULAR</option>
+                <option value="VIP">VIP</option>
+                <option value="EMPLOYEE">EMPLOYEE</option>
+            </select>
+        </label>
+        <button type="submit">Place order</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: store-web
+
+store:
+  catalog-url: ${CATALOG_BASE_URL:http://localhost:8081}
+  order-url: ${ORDER_BASE_URL:http://localhost:8082}

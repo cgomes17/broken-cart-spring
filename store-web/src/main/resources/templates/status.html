@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Store – Status</title>
+    <link rel="stylesheet" th:href="@{/store.css}">
+</head>
+<body>
+<nav><a th:href="@{/}">Products</a><a th:href="@{/cart}">Cart</a></nav>
+<h1>Service status</h1>
+<p><strong th:text="${allUp} ? 'All services are up' : 'Some services are down'"></strong></p>
+<table>
+    <tr><th>Service</th><th>Status</th></tr>
+    <tr th:each="service : ${services}">
+        <td th:text="${service.key}"></td>
+        <td th:text="${service.value} ? 'UP' : 'DOWN'"></td>
+    </tr>
+</table>
+</body>
+</html>
